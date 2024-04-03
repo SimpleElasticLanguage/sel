@@ -11,8 +11,8 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Full documentation
-[SEL doc](https://simpleelasticlanguage.github.io/sel) - Containing [Big queries' examples](https://simpleelasticlanguage.github.io/sel/query_guide.html#big-examples) and all the query synthax  
-[SEL Server doc](https://simpleelasticlanguage.github.io/server/)  
+[SEL doc](https://SimpleElasticLanguage.github.io/sel) - Containing [Big queries' examples](https://SimpleElasticLanguage.github.io/sel/query_guide.html#big-examples) and all the query synthax  
+[SEL Server doc](https://SimpleElasticLanguage.github.io/server/)  
 
 
 ## Compagny
