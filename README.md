@@ -1,5 +1,5 @@
 # SEL
-Simple Elastic Language offer an easy way to query ElasticSearch for everybody even no-tech people and even on a big, complex and nested schema.  
+Simple Elastic Language provides a query language to quickly explore and analyze complex datasets of images on Elasticsearch.  
   
 The project is split into two sub projects:  
 - [SEL](https://github.com/SimpleElasticLanguage/sel), which is the library  
@@ -16,7 +16,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Compagny
-SEL was initially developed for Heuritech in 2016 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
+SEL was initially developed for Heuritech in 2016 and used by everybody inside the compagny since that time, to explore, analyse and make reports on their own dataset of images.  
 
 
 ## Quickstart
@@ -28,36 +28,59 @@ Be aware it will request ES schema at any query generation.
 sel @ git+https://github.com/SimpleElasticLanguage/sel.git@v7.17.1
 ```
 
-### SEL as ES interface
+#### SEL as ES interface
 ```
 from elasticsearch import Elasticsearch
 from sel.sel import SEL
 
 es = Elasticsearch(hosts="http://elasticsearch")
 sel = SEL(es)
-sel.search("my_index", {"query": "label = bag"})
+sel.search("my_index", {"query": "category = person"})
 ```
 
-### SEL as ES query generator
+#### SEL as ES query generator
 ```
 from elasticsearch import Elasticsearch
 from sel.sel import SEL
 
 es = Elasticsearch(hosts="http://elasticsearch")
 sel = SEL(es)
-sel.generate_query({"query": "label = bag"}, index="my_index")["elastic_query"]
+sel.generate_query({"query": "category = cat"}, index="my_index")["elastic_query"]
 ```
 
-### SEL as offline ES query generator
+#### SEL as offline ES query generator
 ```
 from sel.sel import SEL
 
 sel = SEL(None)
-sel.generate_query({"query": "label = bag"}, schema=my_index_schema)["elastic_query"]
+sel.generate_query({"query": "supercategory = animal"}, schema=my_index_schema)["elastic_query"]
 ```
 
-### SEL as API (SEL Server)
+#### SEL as API (SEL Server)
 See [SEL Server](https://github.com/SimpleElasticLanguage/server) for API usage
+
+
+#### Dataset MS COCO 2017 Colorized
+You need to get a dataset to test the service.
+
+This dataset has been generated from the official MS COCO 2017, without the person keypoints, using the convertor.py, and colors has been added by kmeans.py  
+```
+git clone https://github.com/SimpleElasticLanguage/datasets.git
+cp datasets/datasets/ms_coco_2017/ms_coco_2017_colorized_head_10k.ndjson .
+cp datasets/datasets/ms_coco_2017/schemas/schema_es_7.json .
+```
+  
+or, to fetching the full dataset (123k images):  
+```
+wget http://simpleelasticlanguage.com/datasets/ms_coco_2017/ms_coco_2017_colorized.ndjson
+wget http://simpleelasticlanguage.com/datasets/ms_coco_2017/schemas/schema_es_7.json
+```
+
+First time you need to insert some data.  
+```
+./scripts/elastic.py ms_coco_2017_colorized_head_10k.ndjson schema_es_7.json ms_coco_2017 --http-auth user:pwd -v
+```
+
   
 ## Makefile rules  
   
